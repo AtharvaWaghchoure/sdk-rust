@@ -61,3 +61,31 @@ cargo build --release --target wasm32-wasi --example httpbin
 # Run example with blockless runtime
 runtime target/wasm32-wasi/release/examples/httpbin.wasm --permission http://httpbin.org/anything
 ```
+
+### [IPFS](./examples/ipfs_example.rs)
+
+```sh
+# Build example
+cargo build --release --target wasm32-wasi --example ipfs_example
+
+# Run example with blockless runtime
+runtime target/wasm32-wasi/release/examples/ipfs_example.wasm 
+```
+
+### [S3](./examples/aws_example.rs)
+
+```sh
+# Build example
+cargo build --release --target wasm32-wasi --example aws_example
+
+# Run example with blockless runtime
+runtime target/wasm32-wasi/release/examples/aws_example.wasm --env "CONFIG"="BUCKET_NAME,ACCESS_KEY,SECRET_KEY,REGION"
+
+## When using sdk's read_env_vars the uncomment out the part using read_env_vars() in the example
+# Build example
+bls function build
+
+# Invoke function
+bls function invoke --env "CONFIG"="BUCKET_NAME,ACCESS_KEY,SECRET_KEY,REGION"
+```
+
