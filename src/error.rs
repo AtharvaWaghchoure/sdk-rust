@@ -105,3 +105,57 @@ impl std::fmt::Display for CGIErrorKind {
 }
 
 impl std::error::Error for CGIErrorKind {}
+
+#[derive(Debug)]
+pub enum IPFSErrorKind {
+    Success,
+    InvalidHandle,
+    Utf8Error,
+    InvalidMethod,
+    InvalidParameter,
+    InvalidEncoding,
+    RequestError,
+    RuntimeError,
+    TooManySessions,
+    InvalidDriver,
+    PermissionDeny,
+}
+
+impl std::error::Error for IPFSErrorKind {}
+
+impl std::fmt::Display for IPFSErrorKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match *self {
+            Self::Success => write!(f, "Success"),
+            Self::InvalidHandle => write!(f, "Invalid Handle"),
+            Self::Utf8Error => write!(f, "UTF-8 Error"),
+            Self::InvalidMethod => write!(f, "Invalid Method"),
+            Self::InvalidParameter => write!(f, "Invalid Parameter"),
+            Self::InvalidEncoding => write!(f, "Invalid Encoding"),
+            Self::RequestError => write!(f, "Request Error"),
+            Self::RuntimeError => write!(f, "Runtime Error"),
+            Self::TooManySessions => write!(f, "Too many sessions"),
+            Self::InvalidDriver => write!(f, "Invalid Driver"),
+            Self::PermissionDeny => write!(f, "Permission Deny"),
+        }
+    }
+}
+
+impl From<u32> for IPFSErrorKind {
+    fn from(i: u32) -> IPFSErrorKind {
+        match i {
+            0 => IPFSErrorKind::Success,
+            1 => IPFSErrorKind::InvalidHandle,
+            2 => IPFSErrorKind::Utf8Error,
+            3 => IPFSErrorKind::InvalidMethod,
+            4 => IPFSErrorKind::InvalidParameter,
+            5 => IPFSErrorKind::InvalidEncoding,
+            6 => IPFSErrorKind::RequestError,
+            7 => IPFSErrorKind::RuntimeError,
+            8 => IPFSErrorKind::TooManySessions,
+            9 => IPFSErrorKind::InvalidDriver,
+            10 => IPFSErrorKind::PermissionDeny,
+            _ => IPFSErrorKind::RuntimeError,
+        }
+    }
+}
