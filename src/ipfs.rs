@@ -10,7 +10,6 @@ struct IPFSOptions {
     args: Vec<Arg>,
 }
 
-// #[derive(Debug, Serialize, Deserialize)]
 struct Arg {
     name: String,
     value: String,
@@ -292,9 +291,9 @@ pub fn read_entire_file(path: &str) -> Result<Vec<u8>, IPFSErrorKind> {
     let mut content = Vec::new();
     let mut offset = 0;
     loop {
-        let mut buffer = vec![0u8; 1024]; // Read in 1KB chunks
+        let mut buffer = vec![0u8; 1024];
         match ipfs_file_read(path, offset, &mut buffer) {
-            Ok(0) => break, // End of file
+            Ok(0) => break,
             Ok(bytes_read) => {
                 content.extend_from_slice(&buffer[..bytes_read]);
                 offset += bytes_read as u64;

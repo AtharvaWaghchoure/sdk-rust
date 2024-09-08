@@ -90,6 +90,7 @@ impl std::fmt::Display for BucketListResponse {
     }
 }
 
+#[derive(Clone)]
 pub struct AWSS3Configure {
     pub access_key: String,
     pub secret_key: String,
@@ -112,18 +113,6 @@ impl AWSS3Configure {
     }
 
     pub fn encode_json(&self) -> String {
-        // let mut json = String::from("{");
-        // json.push_str(&format!("\"access_key\":\"{}\",", self.access_key));
-        // json.push_str(&format!("\"secret_key\":\"{}\",", self.secret_key));
-        // json.push_str(&format!("\"endpoint\":\"{}\",", self.endpoint));
-
-        // if let Some(ref region) = self.region {
-        //     json.push_str(&format!("\"region\":\"{}\",", region));
-        // }
-        // json.pop();
-        // json.push('}');
-        // json
-
         let mut obj = object! {
             "access_key" : self.access_key.clone(),
             "secret_key": self.secret_key.clone(),
@@ -167,17 +156,6 @@ impl BucketCommand {
     }
 
     pub fn to_json(&self) -> String {
-        // let mut json = self.config.encode_json();
-        // if !self.args.is_empty() {
-        //     json.insert(json.len() - 1, ',');
-        //     for arg in &self.args {
-        //         json.push_str(&format!("\"{}\": \"{}\",", arg.name, arg.value));
-        //     }
-        //     json.pop();
-        // }
-        // json.push('}');
-        // json
-
         let mut json_value =
             json::parse(&self.config.encode_json()).unwrap_or(json::JsonValue::Null);
 
@@ -190,6 +168,7 @@ impl BucketCommand {
     }
 }
 
+#[derive(Clone)]
 pub struct Bucket {
     pub bucket_name: String,
     pub s3config: AWSS3Configure,
