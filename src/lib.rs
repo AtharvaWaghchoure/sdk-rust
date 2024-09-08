@@ -1,3 +1,5 @@
+mod awss3;
+mod awss3_host;
 mod cgi;
 mod cgi_host;
 mod error;
@@ -10,6 +12,7 @@ mod memory_host;
 mod socket;
 mod socket_host;
 
+pub use awss3::*;
 pub use cgi::*;
 pub use error::*;
 pub use http::*;

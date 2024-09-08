@@ -159,3 +159,62 @@ impl From<u32> for IPFSErrorKind {
         }
     }
 }
+
+#[derive(Debug)]
+pub enum AWSS3ErrorKind {
+    Success,
+    InvalidHandle,
+    Utf8Error,
+    InvalidMethod,
+    InvalidParameter,
+    InvalidEncoding,
+    CredentialsError,
+    RegionError,
+    RequestError,
+    RuntimeError,
+    TooManySessions,
+    InvalidDriver,
+    PermissionDeny,
+}
+
+impl std::fmt::Display for AWSS3ErrorKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match *self {
+            Self::Success => write!(f, "Success"),
+            Self::InvalidHandle => write!(f, "Invalid Handle"),
+            Self::Utf8Error => write!(f, "UTF-8 Error"),
+            Self::InvalidMethod => write!(f, "Invalid Method"),
+            Self::InvalidParameter => write!(f, "Invalid Parameter"),
+            Self::InvalidEncoding => write!(f, "Invalid Encoding"),
+            Self::CredentialsError => write!(f, "Credentials Error"),
+            Self::RegionError => write!(f, "Region Error"),
+            Self::RequestError => write!(f, "Request Error"),
+            Self::RuntimeError => write!(f, "Runtime Error"),
+            Self::TooManySessions => write!(f, "Too many sessions"),
+            Self::InvalidDriver => write!(f, "Invalid Driver"),
+            Self::PermissionDeny => write!(f, "Permission Deny"),
+        }
+    }
+}
+
+impl From<u32> for AWSS3ErrorKind {
+    fn from(i: u32) -> AWSS3ErrorKind {
+        match i {
+            0 => AWSS3ErrorKind::Success,
+            1 => AWSS3ErrorKind::InvalidHandle,
+            2 => AWSS3ErrorKind::Utf8Error,
+            3 => AWSS3ErrorKind::InvalidMethod,
+            4 => AWSS3ErrorKind::InvalidParameter,
+            5 => AWSS3ErrorKind::InvalidEncoding,
+            6 => AWSS3ErrorKind::CredentialsError,
+            7 => AWSS3ErrorKind::RegionError,
+            8 => AWSS3ErrorKind::RequestError,
+            9 => AWSS3ErrorKind::TooManySessions,
+            10 => AWSS3ErrorKind::InvalidDriver,
+            11 => AWSS3ErrorKind::PermissionDeny,
+            _ => AWSS3ErrorKind::RuntimeError,
+        }
+    }
+}
+
+impl std::error::Error for AWSS3ErrorKind {}
